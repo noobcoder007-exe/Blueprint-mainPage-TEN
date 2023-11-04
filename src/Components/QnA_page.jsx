@@ -11,7 +11,12 @@ import { Link } from 'react-router-dom';
 
  
 function QnA_page(){
-    const [count, setCount] = useState(0)
+    const [count,setCount]=useState(["Blueprint 1"])
+
+    const [print,setPrint]=useState(0);
+
+    const [show, setShow] = useState([])
+
     const [idea, setIdea] = useState(false);
 	const [startup, setStartup] = useState(false);
     const [brand, setBrand] = useState(false);
@@ -21,9 +26,6 @@ function QnA_page(){
     const [influencer, setInfluencer] = useState(false);
     const [public_relations, setPublic_relation] = useState(false);
     const [content, setContent] = useState(false);
-    function counter() {
-        setCount(prevCount => prevCount+1);
-    }
 	const ideaHandler = () => {
 		setIdea(true);
 		setStartup(false);
@@ -56,47 +58,56 @@ function QnA_page(){
         setContent(false);
 	};
 
+    function handleShow() {
+        
+        console.log("before "+print)
+        setPrint(print+1);
+        console.log("after "+print);
+        if(print!=1){
+            // console.log("updated "+print);
+            setCount([...count,`Blueprint  ${print}`]);
+            // console.log(count);
+           } 
+        show.map((item)=>{
+            item.push(<button>Blueprint {print} </button>)
+        })
+    }
+
     
     return(
         
         
-        <div className='container'>
+        <div className='container main'>
              <header className='q-header-class'>
                 <div className='menu'>
                 <h5 classsName='logo-text'>TEN Market</h5>
-                <Link to="/QnA_page"><button onClick={counter} className='new-btn  mt-4'><FontAwesomeIcon icon={faPlus} ></FontAwesomeIcon>Add Blueprint</button></Link>
+                <button className='new-btn  mt-4' onClick={handleShow}><FontAwesomeIcon icon={faPlus} ></FontAwesomeIcon>Add Blueprint</button>
                 
                <div> <p className='draft mt-3'>DRAFTS</p>
-               <div className="blueprint--container">
-                <button className="main-btn">
-                    <img src="" alt="" />
-                    BluePrint {count}
-                </button>
-               </div>
                 <div className='divider'></div>
                 <p className='draft mt-3'>GENERATED BLUEPRINTS</p>
                 
                 <button type='button' className='new-btn mt-3'><FontAwesomeIcon icon={faFolder} ></FontAwesomeIcon>Standard</button>
                 <button type='button' className='new-btn mt-3'><FontAwesomeIcon icon={faFolder} ></FontAwesomeIcon>Upgraded</button>
+                <button>Blueprint {print}</button>
+                {/* {count.map((item)=>{
+                    return <button>{ item }</button>
+                })} */}
                 </div></div>
                 <div className='del-position'>
                 <button type='button' className='q-delete mt-3'><FontAwesomeIcon icon={faTrashCan} ></FontAwesomeIcon>Clear drafts</button></div>
                 
             </header>
             <div className='row mt-3'>
-                <div className=''>
-                {/* <div className="nav--count">
-                        Blueprint {count}        // yahi cheez navbar me kahi to aaegi chk kar lena 
-                    </div> */}
+                <div className='col-lg-9 col-md-8 col-12 ml-20'><div class="blue"><h3>Blueprint {print}</h3></div>
                   <div className='pro-algin'>
-                   
                      <span className='qna-free'>Free</span>
                      <span className='qna-pro'>Pro</span>
                      <span className='qna-pro'>Premium</span>
                   </div>
                   <div className='mydivider mt-5'></div>
                   <div className='bussiness' >
-                    <div className='logo'>
+                    <div className='logo mt-3'>
                     <img src='./images/logo.png' ></img>
                     </div>
                  <span> <TypeAnimation 
